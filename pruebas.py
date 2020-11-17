@@ -1,27 +1,43 @@
-simbolos = {"MMM":3000, "MM":2000, "M":1000, "D":500, "CCC":300, "CC":200, "C":100, "L":50, "XXX":30, "XX":20, "X":10, "V":5, "III":3, "II":2, "I":1}
+import collections
+simbolos = {"M":1000, "D":500, "C":100, "L":50, "X":10, "V":5, "I":1}
+tipo_5 = ("V", "D", "L")
+tipo_1 = ("I", "X", "C", "M")
+restas = ("CD", "CM", "XL", "XC", "IV", "IX")
 
-def simbolo_a_entero(romano):
-    if isinstance(romano, str) and romano.upper() in simbolos:
-        return simbolos[romano.upper()]
-    elif isinstance(romano, str):
-        raise ValueError(f"simbolo {romano} no permitido")
+def simbolo_a_entero(simbolo):
+    if isinstance(simbolo, str) and simbolo.upper() in simbolos:
+        return simbolos[simbolo.upper()]
+    elif isinstance(simbolo, str):
+        raise ValueError(f"simbolo {simbolo} no permitido")
     else:
+        raise ValueError(f"parámetro {simbolo} debe ser un string")
+    
+
+def romano_a_entero(romano):
+    if not isinstance(romano, str):
         raise ValueError(f"parámetro {romano} debe ser un string")
     
-def romano_a_entero(romano):
-    for numero in range(len(romano)):
-        #Letra actual y letra siguiente
-        numero_actual = romano[numero]
-        if numero != len(romano)-1: #Si existe una letra siguiente
-            numero_siguiente = romano[numero+1]
-        else: #Si es la última letra
-            numero_siguiente = numero_actual
-        # Si está seguido de una letra igual o menor
-        if siguiente (numero_actual) >= siguiente (numero_siguiente):
-            valor_siguiente += siguiente(numero_actual)
-        #Si está seguido de un valor mayor
-        elif siguiente (numero_actual) < siguiente (numero_siguiente):
-            valor_siguiente -= siguiente (numero_actual)
-    return valor_siguiente
+    suma = 0
+    c_repes = 0
+    valor_anterior = ""
+    
+    for letra in romano:
+        if letra == valor_anterior and letra in tipo_5:
+            raise OverflowError(F"Demasiados símbolos de tipo {letra}")
+        if letra == valor_anterior:
+            c_repes += 1
+            if c_repes > 2:
+                raise OverflowError(F"Demasiados símbolos de tipo {letra}")
+        elif valor_anterior and simbolo_a_entero[letra] > simbolo_a_entero[valor_anterior]:
+            if valor_anterior + letra not in restas:
+                raise ValueError
+            suma -= simbolos[valor_anterior] * 2
+            c_repes = 0
+        else:
+            c_repes = 0
         
-print (romano_a_entero ("M"))
+        suma = suma + simbolo_a_entero(letra)   
+        valor_anterior = letra
+    return suma       
+
+  

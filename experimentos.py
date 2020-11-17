@@ -1,19 +1,23 @@
-simbolos = {"M":1000, "D":500, "C":100, "L":50, "X":10, "V":5, "I":1}
+import collections
 
+"""lista1 = ("MMCCMXL")
+lista2 = list(lista1)
 
-def simbolo_a_entero(romano):
-    cadena = []
-    descomponer = list(romano)
-    cadena.append(descomponer)
-    return cadena
+cuenta1 = collections.Counter(lista2)
 
-def romano_a_entero(romano):
-    valores = []
-    letras = simbolo_a_entero(romano)
-    for letra in letras:
-        if romano in simbolos:
-            valores.append(simbolos[romano.upper()])
-    return valores
+print(lista2)
+print(cuenta1)"""
 
-print (simbolo_a_entero ("MMM"))
-print (romano_a_entero ("MM"))
+def experimento (romano):
+    lista_comprobacion = list(romano)
+    contador_letras = collections.Counter(lista_comprobacion)
+    for letra in contador_letras.values():
+        if letra > 4:
+            return OverflowError(F"Demasiados símbolos de tipo {letra}")
+        elif letra > 3:
+            return OverflowError(F"Demasiados símbolos de tipo {letra}")
+    else:
+        return True      
+    
+print(experimento("MMMCMXCIX")) 
+
